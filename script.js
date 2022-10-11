@@ -7,18 +7,18 @@ const loader = document.querySelector(".loader");
 
 let apiQuotes = [];
 
-function loading() {
+function showLoadingSpiner() {
     loader.hidden = false;
     quoteContainer.hidden = true;
 }
 
-function complete() {
+function hideLoadingSpiner() {
     loader.hidden = true;
     quoteContainer.hidden = false;
 }
 
 function newQuote() {
-    loading();
+    showLoadingSpiner();
     const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
     if (!quote.author) {
         authorText.textContent = "Unknown";
@@ -31,11 +31,11 @@ function newQuote() {
         quoteText.classList.remove("long-text");
     }
     quoteText.textContent = quote.text;
-    complete();
+    hideLoadingSpiner();
 }
 
 async function getQuotes() {
-    loading();
+    showLoadingSpiner();
     const apiUrl = 'https://jacintodesign.github.io/quotes-api/data/quotes.json';
     try {
         const response = await fetch(apiUrl);
